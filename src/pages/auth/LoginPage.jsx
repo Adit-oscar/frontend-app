@@ -34,6 +34,9 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="w-full max-w-sm bg-white rounded-lg shadow-sm p-6">
+        <h4 className="text-slate-500 font-bold mb-4 text-center">
+          LOGIN FORM
+        </h4>
         {/* Form Input */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Input Username/Email */}
@@ -116,32 +119,10 @@ export default function Login() {
 
         {/* Social Login Buttons */}
         <div className="space-y-3">
-          {/* Facebook */}
-          <button
-            type="button"
-            className="w-full flex items-center bg-[#3b5998] hover:bg-[#324b80] text-white rounded overflow-hidden text-xs font-semibold transition duration-200"
-          >
-            <span className="p-3 bg-black/15 flex items-center justify-center">
-              <FaFacebookF className="text-sm" />
-            </span>
-            <span className="flex-1 text-center pr-4">LOGIN WITH FACEBOOK</span>
-          </button>
-
-          {/* Twitter */}
-          <button
-            type="button"
-            className="w-full flex items-center bg-[#00acee] hover:bg-[#0096d1] text-white rounded overflow-hidden text-xs font-semibold transition duration-200"
-          >
-            <span className="p-3 bg-black/15 flex items-center justify-center">
-              <FaTwitter className="text-sm" />
-            </span>
-            <span className="flex-1 text-center pr-4">LOGIN WITH TWITTER</span>
-          </button>
-
           {/* Google */}
           <button
             type="button"
-            className="w-full flex items-center bg-[#ea4335] hover:bg-[#d3382b] text-white rounded overflow-hidden text-xs font-semibold transition duration-200"
+            className="w-full flex items-center bg-[#ea4335] hover:bg-[#d3382b] hover:cursor-pointer text-white rounded overflow-hidden text-xs font-semibold transition duration-200"
           >
             <span className="p-3 bg-black/15 flex items-center justify-center">
               <FaGoogle className="text-sm" />

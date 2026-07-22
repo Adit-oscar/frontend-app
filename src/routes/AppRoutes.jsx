@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import AuthLayout from "../layouts/auth";
-import Login from "../pages/auth/login";
-import Register from "../pages/auth/register";
+import Login from "../pages/auth/LoginPage";
+import Register from "../pages/auth/RegisterPage";
+import ErrorPage from "../pages/ErrorPage";
 
 export const routers = createBrowserRouter([
   // KELOMPOK UTAMA (Butuh Login)
@@ -60,8 +61,8 @@ export const routers = createBrowserRouter([
   },
 
   // HALAMAN ERROR / NOT FOUND GLOBAL
-  // {
-  //   path: "*",
-  //   element: <ErrorPage />,
-  // },
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
 ]);
