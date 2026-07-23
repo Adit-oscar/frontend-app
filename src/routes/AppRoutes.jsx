@@ -1,61 +1,39 @@
-import { createBrowserRouter } from "react-router-dom";
-import AuthLayout from "../layouts/auth";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import AuthLayout from "../layouts/auth"; // Layout impor digunakan di sini
 import Login from "../pages/auth/LoginPage";
 import Register from "../pages/auth/RegisterPage";
 import ErrorPage from "../pages/ErrorPage";
+import Dashboard from "../pages/DashboardPage";
+import OAuthSuccess from "../pages/OauthSuccess";
 
 export const routers = createBrowserRouter([
-  // KELOMPOK UTAMA (Butuh Login)
-  // {
-  //   path: "/",
-  //   element: <Layout />, // 1. Cek login dulu di sini
-  //   errorElement: <NotFound />,
-  //   children: [
-  //     {
-  //       element: <Layout />, // 2. Jika lolos login, baru muat layout utama (Navbar, Sidebar)
-  //       children: [
-  //         {
-  //           index: true,
-  //           element: <Dashboard />, // Halaman utama dashboard (Semua user login bisa lihat)
-  //         },
-  //         // CONTOH KELOMPOK KHUSUS ADMIN (Misal: Manajemen User)
-  //         {
-  //           path: "users",
-  //           element: <AdminRoute />, // Cek apakah dia ADMIN
-  //           children: [
-  //             {
-  //               index: true,
-  //               element: <UserList />, // Akses ke getAllUsers (Hanya Admin)
-  //             },
-  //             {
-  //               path: "create",
-  //               element: <UserCreate />, // Akses ke createUser (Hanya Admin)
-  //             },
-  //             {
-  //               path: "edit/:id",
-  //               element: <UserEdit />, // Akses ke updateUser (Hanya Admin)
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  // HALAMAN DASHBOARD / UTAMA
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
 
-  // KELOMPOK AUTENTIKASI (Terpisah dari Layout Utama)
+  // KELOMPOK AUTENTIKASI
   {
     path: "/auth",
-    element: <Login />, // Bersih tanpa Navbar/Sidebar utama aplikasi
-    // errorElement: <NotFound />,
+    element: <AuthLayout />, // ✅ Menggunakan AuthLayout agar <Outlet /> bekerja
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
+        element: <Navigate to="login" replace />, // ✅ Mengarahkan /auth langsung ke /auth/login
+      },
+      {
         path: "login",
-        element: <Login />,
+        element: <Login />, // ✅ Diakses via /auth/login
       },
       {
         path: "register",
-        element: <Register />,
+        element: <Register />, // ✅ Diakses via /auth/register
+      },
+      {
+        path: "oauth-success",
+        element: <OAuthSuccess />, // ✅ Diakses via /auth/oauth-success
       },
     ],
   },

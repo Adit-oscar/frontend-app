@@ -9,6 +9,7 @@ import {
   FaTwitter,
   FaGoogle,
 } from "react-icons/fa";
+import api from "../../api/axios";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +30,12 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login Submitted:", formData);
+  };
+
+  const handleLoginWithGoogle = (e) => {
+    e.preventDefault();
+
+    window.location.href = "http://localhost:8000/auth/google";
   };
 
   return (
@@ -112,9 +119,9 @@ export default function Login() {
 
         {/* Separator Divider */}
         <div className="relative flex py-5 items-center my-2">
-          <div className="flex-grow border-t border-gray-200"></div>
-          <span className="flex-shrink mx-4 text-gray-400 text-xs">or</span>
-          <div className="flex-grow border-t border-gray-200"></div>
+          <div className=" grow border-t border-gray-200"></div>
+          <span className=" shrink mx-4 text-gray-400 text-xs">or</span>
+          <div className=" grow border-t border-gray-200"></div>
         </div>
 
         {/* Social Login Buttons */}
@@ -122,6 +129,7 @@ export default function Login() {
           {/* Google */}
           <button
             type="button"
+            onClick={handleLoginWithGoogle}
             className="w-full flex items-center bg-[#ea4335] hover:bg-[#d3382b] hover:cursor-pointer text-white rounded overflow-hidden text-xs font-semibold transition duration-200"
           >
             <span className="p-3 bg-black/15 flex items-center justify-center">

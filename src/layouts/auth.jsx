@@ -2,8 +2,9 @@ import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      {Outlet}
+    <div className="auth-wrapper">
+      {/* Tempat Login, Register, dan OAuthSuccess akan dirender */}
+      <Outlet />
     </div>
   );
 }
