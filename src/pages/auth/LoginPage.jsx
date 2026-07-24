@@ -9,7 +9,7 @@ import {
   FaTwitter,
   FaGoogle,
 } from "react-icons/fa";
-import api from "../../api/axios";
+import { redirectToGoogleAuth } from "../../api/authApi";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,10 +32,8 @@ export default function Login() {
     console.log("Login Submitted:", formData);
   };
 
-  const handleLoginWithGoogle = (e) => {
-    e.preventDefault();
-
-    window.location.href = "http://localhost:8000/auth/google";
+  const handleLoginWithGoogle = () => {
+    redirectToGoogleAuth();
   };
 
   return (

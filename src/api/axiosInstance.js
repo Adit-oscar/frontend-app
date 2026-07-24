@@ -1,5 +1,4 @@
 import axios from "axios";
-import { config } from "dotenv";
 const URL_API = import.meta.env.VITE_URL_API;
 
 const api = axios.create({
