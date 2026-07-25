@@ -1,13 +1,7 @@
-const tokenKey = "token";
+const TOKEN_KEY = "token";
 
-export const setStoredToken = (token) => {
-  localStorage.setItem(tokenKey, token);
-};
-
-export const getStoredToken = () => {
-  localStorage.getItem(tokenKey);
-};
-
-export const removeStoredToken = () => {
-  localStorage.removeItem(tokenKey);
+export const storage = {
+  setToken: (token) => localStorage.setItem(TOKEN_KEY, token),
+  getToken: () => localStorage.getItem(TOKEN_KEY),
+  removeToken: () => localStorage.removeItem(TOKEN_KEY),
 };

@@ -1,17 +1,13 @@
 import { createContext, useState } from "react";
-import {
-  getStoredToken,
-  removeStoredToken,
-  setStoredToken,
-} from "../utils/storage";
+import { storage } from "../utils/storage";
 
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(getStoredToken());
+  const [token, setToken] = useState(storage.getToken());
 
   const login = (newToken) => {
-    setStoredToken(newToken);
+    storage.setToken(newToken);
     setToken(newToken);
   };
 
@@ -20,9 +16,7 @@ export function AuthProvider({ children }) {
     setToken(null);
   };
 
-  return (
-    <AuthContext.Provider value={{ token, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = { token, login, logout };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
