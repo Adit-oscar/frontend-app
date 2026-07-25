@@ -4,7 +4,7 @@ import Login from "../pages/auth/LoginPage";
 import Register from "../pages/auth/RegisterPage";
 import ErrorPage from "../pages/ErrorPage";
 import Dashboard from "../pages/DashboardPage";
-import OAuthSuccess from "../pages/OauthSuccess";
+import OauthSuccess from "../pages/auth/OauthSuccess";
 
 export const routers = createBrowserRouter([
   // HALAMAN DASHBOARD / UTAMA
@@ -33,7 +33,7 @@ export const routers = createBrowserRouter([
       },
       {
         path: "oauth-success",
-        element: <OAuthSuccess />, // ✅ Diakses via /auth/oauth-success
+        element: <OauthSuccess />,
       },
     ],
   },
