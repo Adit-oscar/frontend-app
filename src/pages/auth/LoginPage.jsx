@@ -1,18 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  FaUser,
-  FaKey,
-  FaEye,
-  FaEyeSlash,
-  FaFacebookF,
-  FaTwitter,
-  FaGoogle,
-} from "react-icons/fa";
-import { redirectToGoogleAuth } from "../../api/authApi";
+import { useState } from "react";
+import { FaGoogle, FaLock } from "react-icons/fa6";
+import { AuthLayout } from "../../layouts/AuthLayout";
+import { LoginForm } from "../../components/composite/LoginForm";
+import { Button, Divider } from "../../components/ui";
+import { authApi } from "../../api/authApi";
 
-export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
+const LoginPage = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -29,114 +22,52 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login Submitted:", formData);
+    console.log("Form Data Submitting:", formData);
   };
 
   const handleLoginWithGoogle = () => {
-    redirectToGoogleAuth();
+    authApi.redirectToGoogleAuth();
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="w-full max-w-sm bg-white rounded-lg shadow-sm p-6">
-        <h4 className="text-slate-500 font-bold mb-4 text-center">
-          LOGIN FORM
+    <>
+      {/* Title Sub-header */}
+      <div className="flex items-center justify-center gap-2 mb-6 pb-2 border-b border-white/5">
+        <FaLock className="text-indigo-400 text-xs" />
+        <h4 className="text-xs font-semibold text-slate-400 tracking-wider uppercase">
+          Masuk ke Akun
         </h4>
-        {/* Form Input */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Input Username/Email */}
-          <div className="flex items-center border border-gray-300 rounded overflow-hidden focus-within:border-blue-500">
-            <span className="p-3 text-gray-400 border-r border-gray-200 bg-white">
-              <FaUser />
-            </span>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username or email"
-              value={formData.username}
-              onChange={handleChange}
-              className="w-full px-3 py-2 text-sm text-gray-700 focus:outline-none placeholder-gray-400"
-              required
-            />
-          </div>
-
-          {/* Input Password */}
-          <div className="flex items-center border border-gray-300 rounded overflow-hidden focus-within:border-blue-500">
-            <span className="p-3 text-gray-400 border-r border-gray-200 bg-white">
-              <FaKey />
-            </span>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-3 py-2 text-sm text-gray-700 focus:outline-none placeholder-gray-400"
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="p-3 text-gray-400 hover:text-gray-600 focus:outline-none"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          </div>
-
-          {/* Remember Me & Login Button */}
-          <div className="flex items-center justify-between pt-2">
-            <label className="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
-              <input
-                type="checkbox"
-                name="rememberMe"
-                checked={formData.rememberMe}
-                onChange={handleChange}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span>Remember me</span>
-            </label>
-
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold text-xs px-6 py-2.5 rounded transition duration-200"
-            >
-              LOGIN
-            </button>
-          </div>
-
-          {/* Links: Register & Forgot Password */}
-          <div className="flex justify-between text-xs pt-1">
-            <Link to="/auth/register" className="text-blue-500 hover:underline">
-              Register now
-            </Link>
-            <a href="#forgot" className="text-gray-400 hover:underline">
-              Forgot password?
-            </a>
-          </div>
-        </form>
-
-        {/* Separator Divider */}
-        <div className="relative flex py-5 items-center my-2">
-          <div className=" grow border-t border-gray-200"></div>
-          <span className=" shrink mx-4 text-gray-400 text-xs">or</span>
-          <div className=" grow border-t border-gray-200"></div>
-        </div>
-
-        {/* Social Login Buttons */}
-        <div className="space-y-3">
-          {/* Google */}
-          <button
-            type="button"
-            onClick={handleLoginWithGoogle}
-            className="w-full flex items-center bg-[#ea4335] hover:bg-[#d3382b] hover:cursor-pointer text-white rounded overflow-hidden text-xs font-semibold transition duration-200"
-          >
-            <span className="p-3 bg-black/15 flex items-center justify-center">
-              <FaGoogle className="text-sm" />
-            </span>
-            <span className="flex-1 text-center pr-4">LOGIN WITH GOOGLE</span>
-          </button>
-        </div>
       </div>
-    </div>
+
+      {/* Form Login */}
+      <LoginForm
+        formData={formData}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+
+      {/* Pembatas / Divider */}
+      <div className="my-6">
+        <Divider text="atau" className="text-slate-500 border-white/10" />
+      </div>
+
+      {/* Social Login Section */}
+      <div className="space-y-3">
+        <Button
+          variant="google"
+          onClick={handleLoginWithGoogle}
+          className="w-full py-2.5 px-4 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-slate-200 font-medium text-sm transition-all flex items-center justify-between group active:scale-[0.98]"
+        >
+          <span className="p-2 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors">
+            <FaGoogle className="text-sm text-slate-200" />
+          </span>
+          <span className="flex-1 text-center font-semibold text-xs tracking-wide">
+            MASUK DENGAN GOOGLE
+          </span>
+        </Button>
+      </div>
+    </>
   );
-}
+};
+
+export default LoginPage;

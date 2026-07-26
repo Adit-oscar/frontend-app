@@ -1,42 +1,61 @@
-// src/pages/auth/OAuthSuccess.jsx
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { FaSpinner, FaExclamationCircle } from "react-icons/fa";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function OAuthSuccess() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    // 1. Tangkap parameter 'token' dari URL (?token=...)
+    // 1. Tangkap parameter 'token' dari URL
     const token = searchParams.get("token");
 
     if (token) {
-      // 2. Simpan token ke localStorage
-      localStorage.setItem("token", token);
+      // 2. Simpan token lewat AuthContext
+      // Otomatis menjalankan storage.setToken(token) dan mengupdate state global
+      login(token);
 
-      // (Opsional) Jika backend juga mengirim data user/refresh token
-      // const user = searchParams.get('user');
-      // if (user) localStorage.setItem('user', user);
-
-      // 3. Redirect ke Halaman Utama / Dashboard
+      // 3. Redirect ke Dashboard
       navigate("/dashboard", { replace: true });
     } else {
-      // Jika tidak ada token di URL, redirect ke login karena gagal
+      // Jika token tidak ditemukan di URL
       console.error("OAuth Failed: Token not found in URL");
-      navigate("/auth/login", { replace: true });
+      setIsError(true);
+
+      const timer = setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 2000);
+
+      return () => clearTimeout(timer);
     }
-  }, [searchParams, navigate]);
+  }, [searchParams, navigate, login]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-lg font-semibold text-gray-700">
-          Memproses Login...
-        </h2>
-        <p className="text-sm text-gray-500 mt-2">
-          Mohon tunggu, Anda sedang dialihkan.
-        </p>
-      </div>
+    <div className="flex flex-col items-center justify-center py-4 text-center">
+      {!isError ? (
+        <>
+          <FaSpinner className="animate-spin text-3xl text-blue-500 mb-3" />
+          <h2 className="text-base font-semibold text-gray-700">
+            Memproses Login...
+          </h2>
+          <p className="text-xs text-gray-500 mt-1">
+            Mohon tunggu, Anda sedang dialihkan ke dashboard.
+          </p>
+        </>
+      ) : (
+        <>
+          <FaExclamationCircle className="text-3xl text-red-500 mb-3" />
+          <h2 className="text-base font-semibold text-gray-700">
+            Autentikasi Gagal
+          </h2>
+          <p className="text-xs text-red-500 mt-1">
+            Token tidak ditemukan. Mengalihkan Anda kembali ke halaman login...
+          </p>
+        </>
+      )}
     </div>
   );
 }

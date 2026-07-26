@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@keyframes moveGrid {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    /* Angka 32px disesuaikan dengan ukuran bg-size grid kamu */
+    background-position: 32px 32px; 
+  }
+}
+
+.animate-grid-move {
+  animation: moveGrid 3s linear infinite;
+}

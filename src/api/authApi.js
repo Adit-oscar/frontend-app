@@ -10,7 +10,11 @@ export const authApi = {
       e.preventDefault();
     }
 
-    const baseUrl = axiosInstance.defaults.baseURL.replace(/\/$/, "");
+    const baseUrl = api.defaults.baseURL.replace(/\/$/, "");
     window.location.href = `${baseUrl}/auth/google`;
   },
+
+  getMe: () => api.get("/auth/me"),
 };
+
+// export default authApi;
