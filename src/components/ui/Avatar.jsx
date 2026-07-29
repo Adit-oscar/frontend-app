@@ -7,7 +7,7 @@ export default function Avatar({ src, alt, size = "md", fallback = "U" }) {
 
   return (
     <div
-      className={`relative inline-block rounded-full overflow-hidden bg-slate-700 border border-slate-600 flex items-center justify-center font-semibold text-slate-200 ${sizeClasses[size]}`}
+      className={`relative inline-block rounded-full overflow-hidden bg-slate-700 border border-slate-600 items-center justify-center font-semibold text-slate-200 ${sizeClasses[size]}`}
     >
       {src ? (
         <img src={src} alt={alt} className="w-full h-full object-cover" />
