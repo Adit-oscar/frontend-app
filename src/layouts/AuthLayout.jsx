@@ -16,7 +16,6 @@ export default function AuthLayout() {
           </h1>
         </div>
 
-        {/* Dynamic Form Content (Login / Register / Forgot Password) */}
         <Outlet />
       </div>
     </div>
